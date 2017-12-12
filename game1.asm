@@ -6,77 +6,108 @@ TITLE LAB6 (SIMPLIFIED .EXE )
 
 
 GAME_START DB 0ah,0dh
-DB "    ` : | | | |:  ||  :     `  :  |  |+|: | : : :|   .        `              .",0AH,0DH
-DB "      ` : | :|  ||  |:  :    `  |  | :| : | : |:   |  .                    :  ",0AH,0DH 
-DB "         .' ':  ||  |:  |  '       ` || | : | |: : |   .  `           .   :.  ",0AH,0DH
-DB "         .-.                                                 .-.              ",0AH,0DH
-DB "   .--.-'   /                 /  .-.                   .--.-'   /             ",0AH,0DH
-DB "  (  (_)   /-.  .-._..-._.---/---`-'.  .-.    .-.     (  (_)---/---.-.    ).--.",0AH,0DH 
-DB "   `-.    /   |(   )(   )   /   /    )/   )  (   )     `-.    /   (  |   /     ",0AH,0DH 
-DB " _    )_.'    | `-'  `-'   / _.(__. '/   (    `-/-'  _    )  /     `-'-'/      ",0AH,0DH
-DB "(_.--'                                    `--._/    (_.--'                     ",0AH,0DH
-DB "        .            .   . *    .   .  ` |||.  +        + '| |||  .  ||`       ",0AH,0DH
-DB "     .             *              .     +:`|!             . ||||  :.||`        ",0AH,0DH
-DB " +                      .                ..!|*          . | :`||+ |||`         ",0AH,0DH
-DB "     .                         +      : |||`        .| :| | | |.| ||`     .    ",0AH,0DH
-DB "       *     +   '               +  :|| |`     :.+. || || | |:`|| `            ",0AH,0DH
-DB "                            .      .||` .    ..|| | |: '` `| | |`  +           ",0AH,0DH
-DB "  .       +++                      ||        !|!: `       :| |                 ",0AH,0DH
-DB "              +         .      .    | .      `|||.:      .||    .      .    `  ",0AH,0DH 
-DB "          '                           `|.   .  `:|||   + ||'     `             ",0AH,0DH
-DB "  __    +      *                         `'       `'|.    `:                   ",0AH,0DH
-DB " '  `---'''----....____,..^---`^``----.,.___          `.    `.  .    ____,.,-  ",0AH,0DH
-DB "    ___,--'```---''   ^  ^ ^        ^       ''''---,..___ __,..---``'          ",0AH,0DH
-DB "--''                           ^                         ``--..,__ D. Rice     ",0AH,0DH,"$"
+
+DB "                       _                 _   _                   ",0AH,0DH  
+DB "                  *   | |         +-    | | (_)              `    ",0AH,0DH  
+DB "                     _| |__   ___   ___ | |_ _ _ __   __ _       ",0AH,0DH  
+DB "                  / __| '_ \ / _ \ / _ \| __| | '_ \ / _` |      ",0AH,0DH  
+DB "             .    \__ \ | | | (_) | (_) | |_| | | | | (_| |      ",0AH,0DH  
+DB "                * |___/_| |_|\___/ \___/ \__|_|_| |_|\__, |      ",0AH,0DH  
+DB "            +                   | |                   __/ |      ",0AH,0DH  
+DB "          .     .            ___| |_ __ _ _ _`_   |  |___/      ",0AH,0DH  
+DB "                            / __| __/ _` | '__|   -+--        `           ",0AH,0DH  
+DB "               )            \__ \ || (_| | |       |    .                 ",0AH,0DH  
+DB "                            |___/\__\__,_|_|                 .        +    ",0AH,0DH  
+DB "        .                                                           ",0AH,0DH
+DB "                     *         | |      ((             *           ",0AH,0DH
+DB "              *                |'|       `    ._____               ",0AH,0DH
+DB "                  +     ___    |  |   *        |.   |' .---         ",0AH,0DH
+DB "                _    .-'   '-. |  |     .--'|  ||   | _|    |       ",0AH,0DH
+DB "             .-'|  _.|  |    ||   '-__  |   |  |    ||      |       ",0AH,0DH
+DB "             |' | |.    |    ||       | |   |  |    ||      |       ",0AH,0DH
+DB "_____________|__'-'_____'____||_______'-'___'-.'____'`______|___________________",0AH,0DH
+DB "________________________________________________________________________________",0AH,0DH,"$" 
+              
 
 MAIN_SCREEN_BORDER DB 0AH,0DH
-  DB "  ",0C9H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BBH,0AH,0DH
+  DB  "  ",0C9H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BBH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0C9H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BBH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"   arrow up - go up       ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"   arrow down - go down   ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"   space bar - shoot      ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"   q - quit               ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0C8H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BCH,0AH,0DH
   DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
   DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"     S H O O T I N G  S T A R S",0AH,0DH
   DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
   DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
-  DB  "  ",0BAH,"                                     ", 0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0C9H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BBH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0BAH,"                          ",0BAH,0AH,0DH
+  DB  "  ",0BAH,"                                     ", 0BAH,"    ",0C8H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BCH,0AH,0DH
   DB "  ",0C8H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BCH,0AH,0DH,"$"
 
 
-  GAME_OVER DB 0AH,0DH
-  DB "GAME OVER !!!","$"
+
+GAME_OVER DB 0ah,0dh
+DB "         ______        ___  __________ ",0AH,0DH
+DB "        / ____|   /\   |  \/  |  ____| ",0AH,0DH  
+DB "       | |  __   /  \  | \  / | |__    ",0AH,0DH  
+DB "       | | |_ | / /\ \ | |\/| |  __|   ",0AH,0DH  
+DB "       | |__| |/ ____ \| |  | | |____  ",0AH,0DH  
+DB "       \_____/_/    \_\_|__|_|______| ",0AH,0DH  
+DB "       / __ \ \    / /  ____|  __ \   ",0AH,0DH  
+DB "       | |  | \ \  / /| |__  | |__) |       _____      ",0AH,0DH  
+DB "       | |  | |\ \/ / |  __| |  _  /    ___/     \___  ",0AH,0DH  
+DB "       | |__| | \  /  | |____| | \ \   `-._)     (_,-` ",0AH,0DH  
+DB "        \____/   \/   |______|_|  \_\      \O _ O/     ",0AH,0DH  
+DB "                                            \ - /      ",0AH,0DH 
+DB "                                             `-(      ",0AH,0DH
+DB "                                             _||_      ",0AH,0DH
+DB "                                            |-..-|   PRESS SPACE  ",0AH,0DH
+DB "                                            |/. \|        TO TRY AGAIN",0AH,0DH
+DB "          ESC KEY TO EXIT                   |\__/|     ",0AH,0DH
+DB "                                          ._|//\\|_,     ",0AH,0DH
+DB "                                          `-((  ))-'     ",0AH,0DH,"$"  
 
   
   DISP_HTP DB 0ah,0dh
-  DB "  ===== P R E S S   U P  A N D  D O W N  K E Y S  T O MOVE THE SHOOTER =====",0AH,0DH
-  DB "      ===== P R E S S   S P A C E  B A R  T O S H O O  T =====" ,0f8h,0AH,0DH
-  DB "      ===== P R E S S  Q  T O G O B A C K T O M A I N M E N U  =====" ,0f8h, "$"
+  DB "                       H  O  W     T  O     P   L   A  Y                            ",0AH,0DH,0AH,0DH
+  DB "                    Try to shoot as many stars as you can.  ",0AH,0DH
+  DB "                          You are given 5 lives.            ",0AH,0DH,0ah,0dh 
+  DB "                      A miss would mean a less on lives.    ",0ah,0DH,0ah,0dh
+  db "                            SPACEBAR TO SHOOT               ", 0ah,0dh
+  db "                           ARROW UP TO MOVE UP              ", 0ah,0dh
+  db "                         ARROW DOWN TO MOVE DOWN            ", 0ah,0dh
+  DB "                      === PRESS ESC TO CONTINUE ===      ", "$"
+
+  INSTRUCTION_KEYS DB 0AH,0DH
+  DB " ARROW UP   - GO UP ",0AH,0DH
+  DB " ARROW DOWN - GO DOWN ",0AH,0DH
+  DB " SPACE BAR  - SHOOT ",0AH,0DH,"$"
 
 
 
 
   NEW_INPUT   DB    ?
-  ROW DB ?
-  COL DB ?
+  ROW DB 03H
+  COL DB 01H
   FLAG DB "F$"
   FLAGC DB "F$"
   FLAGB DB "F$"
   
+
   ROWSTAR DB ?
-  COLSTAR DB ?
+  COLSTAR DB 03H
   
   SHOOTER_DEFPOS DB ?
-  BULLET_DEFPOS DB ?
+  BULLET_DEFPOS DB 04H
   STAR_DEFPOS DB ?
   LIVES DW ?
   
@@ -87,18 +118,17 @@ MAIN_SCREEN_BORDER DB 0AH,0DH
 
   
   
-
+  PRESS_ENTER DB "PRESS ENTER $"
   SCORELABEL DB "SCORE: $"
   SCORE DW ?
-  SCORESTR DB '$$$$$'
-  LIVESLABEL DW ?
+  LIVESLABEL DB "LIVE(S): $"
   HIGHSCORE_LABEL DB "HIGHSCORE: $"
 
   
 
-
+  SCORESTR DB "$$$$$"
   SHOOTER DB ">$"
-  STAR DB "O$"
+  STAR DB "*$"
   BULLET DB "-$"
 
   ERROR1_STR    DB 'Error in creating file.$'
@@ -126,48 +156,49 @@ MAIN PROC FAR
   MOV AX, @data
   MOV DS, AX
 
-
-  MOV ROW, 03H
-  Mov COL, 01H
-
-  MOV COLSTAR, 03H
-  MOV BULLET_DEFPOS, 04H
+;----- run the game -------
 
   _RUN:
 
-  ;clear the screen
-  CALL CLEAR_SCREEN
+  CALL WELCOME_SCREEN   ;set first screen
+
+  
+  MOV DL, 10H             ;set the cursor passing dl and dh
+  MOV DH, 1H
+  CALL SET_CURSOR         ;for title text
 
 
+  LEA   DX, GAME_START  ;display content(title text)
+  CALL PRINTF           ;of first screen 
 
-  ;set the cursor
-  MOV DL, ROW
-  MOV DH, COL
-  CALL SET_CURSOR
+  MOV DL, 20H           ;set the cursor passing dl and dh
+  MOV DH, 10H
+  CALL SET_CURSOR       ;for press enter text
 
+  LEA DX, PRESS_ENTER
+  CALL PRINTF           ;print press enter text
 
-  LEA   DX, GAME_START
-  CALL PRINTF
-
-
-  MOV BP, 1
+  MOV BP, 3             ;set delay
   MOV SI, 3
   CALL DELAY
-  CALL GET_INPUT
+  CALL GET_INPUT        ;listen to key input
   
-  CMP NEW_INPUT,01H
-  JE EXIT
-  CMP NEW_INPUT,1CH
-  JE ENTER_GAME
-  JMP _RUN
+  CMP NEW_INPUT,01H     ;if input == esc
+  JE EXIT               ;exit
+  CMP NEW_INPUT,1CH     ;if input == enter
+  JE ENTER_GAME         ;enter game
+
+  JMP _RUN              ;else keep screen running
   
-  ENTER_GAME:
-  CALL HTP_SCREEN
+  ENTER_GAME:           ; game start
+  CALL HTP_SCREEN       ;with how to play screen
+
 
   JMP EXIT
+;-------------------------------
 
-DISPLAY_ERROR1:
-  LEA DX, ERROR1_STR
+DISPLAY_ERROR1:         ;for error checkings in 
+  LEA DX, ERROR1_STR    ;file manipulations
   CALL PRINTF
   JMP EXIT
 
@@ -196,7 +227,7 @@ DISPLAY_ERROR6:
   CALL PRINTF
   JMP EXIT
 
-EXIT:
+EXIT:           ;end program
   MOV AH, 4CH
   INT 21H
 
@@ -259,8 +290,8 @@ READ_FILE PROC
 ;read file
   MOV AH, 3FH           ;request read record
   MOV BX, FILEHANDLE    ;file handle
-  MOV CX, 2        ;record length
-  LEA DX, RECORD_STR   ;address of input area
+  MOV CX, 2             ;record length
+  LEA DX, RECORD_STR    ;address of input area
   INT 21H
   JC DISPLAY_ERROR5
   CMP AX, 00            ;zero bytes read?
@@ -269,15 +300,15 @@ READ_FILE PROC
 READ_FILE ENDP
 ;____________________________________________________________________________________________________________________________________
 
-CLEAR_SCREEN PROC NEAR
+WELCOME_SCREEN PROC NEAR
   MOV AX, 0600H   ;full screen
-  MOV BH, 0EH     ;white background (7), blue foreground (1)
+  MOV BH, 00011110B     ;BLUE background (0001), YELLOW foreground (1110)
   MOV CX, 0000H   ;upper left row:column (0:0)
   MOV DX, 184FH   ;lower right row:column (24:79)
   INT 10H
 
   RET
-CLEAR_SCREEN ENDP
+WELCOME_SCREEN ENDP
 
 ;____________________________________________________________________________________________________________________________________
 
@@ -293,26 +324,28 @@ DELAY PROC NEAR
 DELAY ENDP
 ;____________________________________________________________________________________________________________________________________
 
-
 HTP_SCREEN PROC NEAR
+;set screen colors
   MOV AX, 0600H   ;full screen
-  MOV BH, 0bH     ;white background (7), blue foreground (1)
+  MOV BH, 20H     ;black background (0), cyan foreground (B)
   MOV CX, 0000H   ;upper left row:column (0:0)
   MOV DX, 184FH   ;lower right row:column (24:79)
   INT 10H
 
-  MOV DL, 50
-  MOV DH, 10
+;set cursor for contents
+  MOV DL, 10
+  MOV DH, 5
   CALL SET_CURSOR
     
-
+;print how to play text
   LEA DX, DISP_HTP
   CALL PRINTF
-    
+
+;listens to key input     
   HTP_LOOP:
     CALL GET_INPUT
-    CMP NEW_INPUT, 01H
-    JE INIT_GL
+    CMP NEW_INPUT, 01H ;if esc is pressed
+    JE INIT_GL         ;initialize game loop
     JMP HTP_LOOP
     
   INIT_GL:
@@ -322,12 +355,16 @@ HTP_SCREEN ENDP
 
 ;____________________________________________________________________________________________________________________________________
 
+;initializes variables before entering game loop
 INITIALIZE PROC
     MOV SHOOTER_DEFPOS, 09H
     CALL CREATE_STAR
     MOV STAR_DEFPOS, al
-    MOV LIVES, 10
+    MOV LIVES, 3
     MOV SCORE, 0
+    MOV BP, 3
+    MOV SI, 3
+    CALL DELAY
     CALL GAME_LOOP
 INITIALIZE ENDP
 
@@ -342,76 +379,96 @@ RAND_STAR:
   and al, 0fh  ; keep only the 4 last bits of the hundredth of seconds
     
 
-  CMP AL, 5
-  JL RAND_STAR
+  CMP AL, 5    ;if al is less than 5
+  JL RAND_STAR ;randomize al again 
   RET
 CREATE_STAR ENDP
 ;____________________________________________________________________________________________________________________________________
 
 MAIN_SCREEN PROC
     MOV AX, 0600H   ;full screen
-    MOV BH, 0CH     ;white background (7), blue foreground (1)
+    MOV BH, 00111110b     ;black background (0), cyan foreground (C)
     MOV CX, 0000H   ;upper left row:column (0:0)
     MOV DX, 184FH   ;lower right row:column (24:79)
     INT 10H
 
+
+  ;set cursor  
+    MOV DL, 05H
+    MOV DH, 01H
+    CALL SET_CURSOR
+
+BORDERS:
+    LEA DX, MAIN_SCREEN_BORDER
+    CALL PRINTF
+
+  ;set cursor  
     MOV DL, 30H
     MOV DH, 10H
     CALL SET_CURSOR
     
-
+;display "score: "
     LEA DX, SCORELABEL
     CALL PRINTF
 
+;convert score num to printable string
     mov  si, offset SCORESTR
     mov  ax, SCORE
     call number2string    ;RETURNS NUMSTR.
 
+;print printable score
     mov  dx, offset SCORESTR
     CALL PRINTF
 
+;set cursor
     MOV DL, 30H
     MOV DH, 12H
     CALL SET_CURSOR
 
-
+;display "HIGHSCORE: "
     LEA DX, HIGHSCORE_LABEL
     CALL PRINTF
 
 
+;open highscore file
   CALL OPEN_FILE
+;read from file, store to RECORD_STR
+;the retrieved string
   CALL READ_FILE
 
-  ;display record
+;display highscore
   LEA DX, RECORD_STR
   CALL PRINTF
 
+;close filehandle
   CALL CLOSE_FILEHANDLE
 
+;set cursor
+  MOV DL, 30H
+  MOV DH, 14H
+  CALL SET_CURSOR
 
-    MOV DL, 30H
-    MOV DH, 14H
-    CALL SET_CURSOR
+;convert num of lives to printable string
+  mov  si, offset SCORESTR
+  mov  ax, LIVES
+  call number2string    ;RETURNS NUMSTR.
 
 
-    mov  si, offset SCORESTR
-    mov  ax, LIVES
-    call number2string    ;RETURNS NUMSTR.
+;print "live(s)"
+  mov dx, offset LIVESLABEL
+  CALL PRINTF
+;print num of lives
+  mov  dx, offset SCORESTR
+  CALL PRINTF
 
-    mov  dx, offset SCORESTR
-    CALL PRINTF
-
-    ;HEART
-      MOV AH,6
-      MOV DL, 3     ;3 for heart
-      INT 21H
+;for heart character
+ ; MOV AH,6
+ ; MOV DL, 3     ;3 for heart
+ ; INT 21H
 
 MOV DL, 0H
 MOV DH, COL
 CALL SET_CURSOR
-BORDERS:
-    LEA DX, MAIN_SCREEN_BORDER
-    CALL PRINTF
     
     RET
 MAIN_SCREEN ENDP
@@ -419,11 +476,11 @@ MAIN_SCREEN ENDP
 ;____________________________________________________________________________________________________________________________________
 
 RENDER_STAR PROC NEAR
-;SET CURSOR FOR STARS
+;SET CURSOR FOR STAR
     MOV DL, STAR_DEFPOS
     MOV DH, COLSTAR
     CALL SET_CURSOR
-    
+;PRINT STAR    
     LEA DX, STAR
     CALL PRINTF
     RET
@@ -439,49 +496,52 @@ RENDER_SHOOTER PROC NEAR
   MOV DH, SHOOTER_DEFPOS
   CALL SET_CURSOR
 
-  ;PRINT SHOOTER
+;PRINT SHOOTER
   LEA DX, SHOOTER
   CALL PRINTF
-
-  MOV BP, 4
-  MOV SI, 4
-  CALL DELAY
         
   RET
 RENDER_SHOOTER ENDP
 ;____________________________________________________________________________________________________________________________________
 
 RENDER_BULLET PROC NEAR
+
+  MOV BP, 3
+  MOV SI, 3
+  CALL DELAY
+
 ;SET CURSOR FOR BULLET
   MOV DL, BULLET_DEFPOS
   MOV DH, BULLET_ROW
   CALL SET_CURSOR
 
-  ;PRINT SHOOTER
+;PRINT SHOOTER
   LEA DX, BULLET
   CALL PRINTF
-  MOV BP, 2
-  MOV SI, 2
-  CALL DELAY
   RET
 RENDER_BULLET ENDP
 ;____________________________________________________________________________________________________________________________________
 
 GAME_LOOP PROC NEAR
-        
+ 
+ ;display main game screen
   CALL MAIN_SCREEN
+;render star
   CALL RENDER_STAR
+;render shooter
   CALL RENDER_SHOOTER
 
-  MOV AL, 'F'
-  CMP FLAGB, AL
-  JNE BULLET_FIRED
-  JMP COLLISION_
 
+  MOV AL, 'F'
+  CMP FLAGB, al   ;checks if bullet is fired
+  JNE BULLET_FIRED ;if true, bullet is fired
+  JMP COLLISION_   ;check COLLISION otherwise
+
+;starts firing bullet
 BULLET_FIRED:
   CALL RENDER_BULLET
     
-  
+ ;checks collision 
 COLLISION_:
   CALL CHECK_COLLISION
   MOV BL,FLAGC
@@ -489,102 +549,97 @@ COLLISION_:
   JE NO_COLLISION
   JMP NEXT
 
+;if no collision and star is already gone
+;subtract one life
 NO_COLLISION:
   CMP COLSTAR,20
   JE DEC_LIFE
   JMP NEXT
 
+;updates life and checks if game is
+;already over (life == 0)
 DEC_LIFE:
   CALL UPDATE_LIFE
   CMP LIVES,0
   JE GAME_IS_OVER
   JMP NEXT
 
+;display game over screen
 GAME_IS_OVER:
     CALL GAME_OVER_SCREEN
     CALL ESCAPE
+ESCAPE:
+  MOV AH, 4CH
+  INT 21H
 
 NEXT:
-  INC BULLET_DEFPOS
-  CALL MOV_STARS
-  CALL GET_INPUT
+  INC BULLET_DEFPOS   ; move bullet to the right 
+  MOV BP, 5
+  MOV SI, 5
+  CALL DELAY
+  CALL MOV_STARS      ;mov stars down and/or reset
+  CALL GET_INPUT      ;check input
   CALL CHECK_INPUT
 
-
-
-  ;CALL CHANGE_DIRECTION
   CALL GAME_LOOP
 
 GAME_LOOP ENDP
 ;____________________________________________________________________________________________________________________________________
 
-CHANGE_DIRECTION PROC NEAR
-    CMP NEW_INPUT, 01H
-    JNE RIGHT
-    JMP ESCAPE
-    RIGHT:
-        INC ROW
-        CMP ROW, 78
-        JE  WRAPRIGHT
-        JMP GAME_LOOP
-    WRAPRIGHT:
-        MOV ROW, 1 
-        JMP GAME_LOOP
-  ESCAPE:
-    MOV AH, 4CH
-    INT 21H
-  
-CHANGE_DIRECTION ENDP
-;____________________________________________________________________________________________________________________________________
-
 CHECK_INPUT PROC NEAR
   JZ  COMP
-  CMP NEW_INPUT,10H
-  JE ESCAPE
-  CMP NEW_INPUT, 48h
+  CMP NEW_INPUT,10H             ;if esc key
+  JE ESCAPE                     ;exit
+  CMP NEW_INPUT, 48h            ;if arrow up
   JE S_UP       ;SHOOTER UP
-  CMP NEW_INPUT, 50H
+  CMP NEW_INPUT, 50H            ;if arrow down
   JE S_DOWN     ;SHOOTER DOWN
-  CMP NEW_INPUT, 39H
-  JE SET_FLAG
+  CMP NEW_INPUT, 39H            ;if spacebar
+  JE SET_FLAG                   ;fire
+;else  
 COMP: 
   MOV BL, "T"
-  CMP FLAG, BL
+  CMP FLAG, BL                  ;check if bullet is fired
   JE SHOOT      ;SHOOT
   
   RET
   
   S_UP:
-    DEC SHOOTER_DEFPOS
-    CMP SHOOTER_DEFPOS, 3
-    JLE WS_UP
+    DEC SHOOTER_DEFPOS      ;go up 
+    CMP SHOOTER_DEFPOS, 3   ;check if shooter hits border
+    JLE WS_UP               ;wrap if true
     RET
   S_DOWN:
-    INC SHOOTER_DEFPOS
-    CMP SHOOTER_DEFPOS, 21
-    JGE WS_DOWN
+    INC SHOOTER_DEFPOS      ;go down
+    CMP SHOOTER_DEFPOS, 21  ;check if shooter hits border
+    JGE WS_DOWN             ;wrap if true
     RET
-  WS_DOWN:          ;WRAP SHOOTER DOWN
+  WS_DOWN:                  ;WRAP SHOOTER DOWN
     MOV SHOOTER_DEFPOS, 21
     RET
-  WS_UP:          ;WRAP SHOOTER DOWN
+  WS_UP:                    ;WRAP SHOOTER DOWN
     MOV SHOOTER_DEFPOS, 3
     RET
+
   SET_FLAG:
-    MOV BL, "T"
+    MOV BL, "T"             ;firing = true
     MOV FLAG,BL
   
+;initialize bullet firing after spacebar is pressed
   INIT_SHOOT:
     MOV BL,"T"
     MOV FLAGB,BL
     MOV BULLET_DEFPOS, 3
     MOV DL, SHOOTER_DEFPOS
     MOV BULLET_ROW, DL
+
+;check if bullet exceeds border
   SHOOT:
     CMP BULLET_DEFPOS, 25
     JGE BULLET_END
     INC BULLET_DEFPOS
     RET
+;end bullet if it exceeds border
   BULLET_END:
     MOV BL, "F"
     MOV FLAGB, BL
@@ -595,54 +650,63 @@ CHECK_INPUT ENDP
 
 GAME_OVER_SCREEN PROC
     MOV AX, 0600H   ;full screen
-    MOV BH, 0CH     ;white background (7), blue foreground (1)
+    MOV BH, 01001010b     ;black background (0), cyan foreground (C)
     MOV CX, 0000H   ;upper left row:column (0:0)
     MOV DX, 184FH   ;lower right row:column (24:79)
     INT 10H
 
+;set cursor
     MOV DL, ROW
     MOV DH, COL
     CALL SET_CURSOR
 
-    mov  si, offset SCORESTR
-    mov  ax, SCORE
-    call number2string
+;convert string from file to number
+    MOV SI, OFFSET RECORD_STR     ;pass string to convert 
+    CALL STRTONUM                  ;returns number in bx
 
-    mov  dx, offset SCORESTR
-    CALL PRINTF 
+;compare if score>=highscore
+    CMP SCORE,BX
+    JGE STORE_NEW_HIGHSCORE   ;store new highscore if true
+    JMP PRINT_GAME_OVER
 
-  MOV SI, OFFSET RECORD_STR     ;pass string to convert 
-  CALL STRTONUM       ;returns number in bx
-
-
-
-   mov  dx, offset RECORD_STR
-  CALL PRINTF 
-
-
-  JMP PRINT_GAME_OVER
+;store by writing to file the new highscore
 STORE_NEW_HIGHSCORE:
-  MOV AL, SCORESTR
-  MOV HIGHSCORE_WRT,AL
+    MOV AL, SCORESTR
+    MOV HIGHSCORE_WRT,AL
 
-
-  CALL CREATE_FILE
-  CALL WRITE_TO_FILE
-  CALL CLOSE_FILEHANDLE
+    CALL CREATE_FILE
+    CALL WRITE_TO_FILE
+    CALL CLOSE_FILEHANDLE
 
 
 PRINT_GAME_OVER:
-  ;set the cursor
-  
-  LEA   DX, GAME_OVER
-  CALL PRINTF
-  RET
+    ;prints game over screen
+      LEA   DX, GAME_OVER
+      CALL PRINTF
+
+RESTART_OR_NO:
+      CALL GET_INPUT
+      JZ RESTART_OR_NO
+      CMP NEW_INPUT, 39H
+      JE START_NEW_GAME
+      CMP NEW_INPUT, 01H
+      JE END_GAME
+      JMP RESTART_OR_NO
+START_NEW_GAME:
+      CALL INITIALIZE
+END_GAME:
+      MOV AH, 4CH
+      INT 21H
 
 GAME_OVER_SCREEN ENDP
 
 ;____________________________________________________________________________________________________________________________________
 
 CHECK_COLLISION PROC NEAR
+
+;----------------------------------
+;checks column and row location of 
+;arrow and bullet
   MOV DL, COLSTAR
   CMP DL, BULLET_ROW
   JE COLLIDED
@@ -652,37 +716,44 @@ COLLIDED:
   CMP DL, BULLET_DEFPOS
   JE COLL
   RET
+;if both are equal, collision happened
+;--------------------------------
 COLL:
   MOV DL, BULLET_DEFPOS
   MOV DH, BULLET_ROW
   CALL SET_CURSOR
-   
+
+;print 'X' to signify collision   
   MOV AL, 'X'
   MOV AH, 02H
   MOV DL, AL
   INT 21H
+
+;set flag for collision to true
   MOV BL, 'T'
   MOV FLAGC, BL
+;set flag for bullet to false
   MOV BL, 'F'
   MOV FLAGB,BL
-  MOV BP, 1
+;set delay
+  MOV BP, 3
   MOV SI, 3
   CALL DELAY
+;update score after collision
   CALL UPDATE_SCORE
-  RET
-DECREMENT_LIFE:
-  DEC LIVESLABEL
   RET
 CHECK_COLLISION ENDP
 ;____________________________________________________________________________________________________________________________________
 
 UPDATE_LIFE PROC NEAR
+;decrement number of lives
   DEC LIVES
   RET
 UPDATE_LIFE ENDP
 ;____________________________________________________________________________________________________________________________________
 
 UPDATE_SCORE PROC NEAR
+;increments score
   INC SCORE
   RET
 UPDATE_SCORE ENDP
@@ -711,29 +782,29 @@ MOV_STARS ENDP
 ;____________________________________________________________________________________________________________________________________
 
 GET_INPUT PROC NEAR 
-    MOV   AH, 01H   ;check for input
-      INT   16H
+  MOV   AH, 01H   ;check for input
+  INT   16H
 
-      JZ    BACKTOGAME
+  JZ    BACKTOGAME    ;if no input, return
     
-      MOV   AH, 00H   
-      INT   16H
+  MOV   AH, 00H       ;else, get input
+  INT   16H
     
-    MOV NEW_INPUT, AH
-    
-    RETURN:
-       RET
+  MOV NEW_INPUT, ah   ;and store it
+
   BACKTOGAME:
     RET
 GET_INPUT  ENDP 
 ;____________________________________________________________________________________________________________________________________
-
+;prints what is stored in dx
 PRINTF PROC NEAR
     MOV AH, 09H
     INT 21H
     RET
 PRINTF ENDP
 
+;____________________________________________________________________________________________________________________________________
+;sets cursor location
 SET_CURSOR PROC NEAR
   MOV AH, 01H
   MOV CX, 2607H
