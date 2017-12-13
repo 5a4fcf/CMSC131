@@ -55,6 +55,12 @@ MAIN_SCREEN_BORDER DB 0AH,0DH
 
 
 
+  
+  PRESS_ENTER DB "PRESS ENTER $"
+  SCORELABEL DB "SCORE: $"
+  LIVESLABEL DB "LIVE(S): $"
+  HIGHSCORE_LABEL DB "HIGHSCORE: $"
+
 GAME_OVER DB 0ah,0dh
 DB "         ______        ___  __________ ",0AH,0DH
 DB "        / ____|   /\   |  \/  |  ____| ",0AH,0DH  
@@ -87,44 +93,28 @@ DB "                                          `-((  ))-'     ",0AH,0DH,"$"
   db "                         ARROW DOWN TO MOVE DOWN            ", 0ah,0dh
   DB "                      === PRESS ESC TO CONTINUE ===      ", "$"
 
-  INSTRUCTION_KEYS DB 0AH,0DH
-  DB " ARROW UP   - GO UP ",0AH,0DH
-  DB " ARROW DOWN - GO DOWN ",0AH,0DH
-  DB " SPACE BAR  - SHOOT ",0AH,0DH,"$"
-
-
 
 
   NEW_INPUT   DB    ?
   ROW DB 03H
   COL DB 01H
+  ROWSTAR DB ?
+  COLSTAR DB 03H
+
+  
+  SHOOTER_DEFPOS DB ?
+  BULLET_DEFPOS DB 04H
+  STAR_DEFPOS DB ?
+  BULLET_ROW DB ?
+
   FLAG DB "F$"
   FLAGC DB "F$"
   FLAGB DB "F$"
   
 
-  ROWSTAR DB ?
-  COLSTAR DB 03H
-  
-  SHOOTER_DEFPOS DB ?
-  BULLET_DEFPOS DB 04H
-  STAR_DEFPOS DB ?
+
   LIVES DW ?
-  
-  BULLET_ROW DB ?
-  
-  INPUT_SHOOTER DB ?
-  INPUT_BULLET DB ?
-
-  
-  
-  PRESS_ENTER DB "PRESS ENTER $"
-  SCORELABEL DB "SCORE: $"
   SCORE DW ?
-  LIVESLABEL DB "LIVE(S): $"
-  HIGHSCORE_LABEL DB "HIGHSCORE: $"
-
-  
 
   SCORESTR DB "$$$$$"
   SHOOTER DB ">$"
@@ -138,13 +128,19 @@ DB "                                          `-((  ))-'     ",0AH,0DH,"$"
   ERROR5_STR    DB 'Error reading from file.$'
   ERROR6_STR    DB 'No record read from file.$'
 
-  PATHFILENAME  DB 'highscore.txt', 00H
+  PATHFILENAME  DB 'high.txt', 00H
   FILEHANDLE    DW ?
 
-  HIGHSCORE_WRT    DB '0' ;length = 35 characters
+  HIGHSCORE_WRT    DB 32 DUP('$')
   RECORD_STR    DB 3 DUP('$')
 
-  HIGHSCORE_NUM DW 0 
+  HIGHSCORE_NUM DW ? 
+  TEN DW ?
+  HS_NUM DW ?
+  COUNTER DW ?
+  RES  DW 100 DUP ('$')
+  MSG DB 32 DUP('$') 
+
 
 ;____________________________________________________________________________________________________________________________________
 
@@ -253,14 +249,14 @@ WRITE_TO_FILE PROC
   ;write file
   MOV AH, 40H           ;request write record
   MOV BX, FILEHANDLE    ;file handle
-  MOV CX, 2             ;record length
-  LEA DX, HIGHSCORE_WRT    ;address of output area
+  MOV CX, COUNTER            ;record length
+  LEA DX, RES    ;address of output area
   INT 21H
   JC DISPLAY_ERROR2     ;cf = 1 means error in writing
-  CMP AX, 2           ;after writing, set AX to size of chars nga na write
+  CMP AX, COUNTER         ;after writing, set AX to size of chars nga na write
   JNE DISPLAY_ERROR3
   RET
-WRITE_TO_FILE ENDP
+WRITE_TO_FILE ENDP 
 
 ;____________________________________________________________________________________________________________________________________
 
@@ -277,7 +273,6 @@ OPEN_FILE PROC
   ;open file
   MOV AH, 3DH           ;requst open file
   MOV AL, 00            ;read only; 01 (write only); 10 (read/write)
-  LEA DX, PATHFILENAME
   INT 21H
   JC DISPLAY_ERROR4
   MOV FILEHANDLE, AX
@@ -290,8 +285,7 @@ READ_FILE PROC
 ;read file
   MOV AH, 3FH           ;request read record
   MOV BX, FILEHANDLE    ;file handle
-  MOV CX, 2             ;record length
-  LEA DX, RECORD_STR    ;address of input area
+  MOV CX,2000           ;record length
   INT 21H
   JC DISPLAY_ERROR5
   CMP AX, 00            ;zero bytes read?
@@ -360,6 +354,8 @@ INITIALIZE PROC
     MOV SHOOTER_DEFPOS, 09H
     CALL CREATE_STAR
     MOV STAR_DEFPOS, al
+    MOV COLSTAR, 03H
+    MOV FLAGB, 'F'
     MOV LIVES, 3
     MOV SCORE, 0
     MOV BP, 3
@@ -386,6 +382,7 @@ CREATE_STAR ENDP
 ;____________________________________________________________________________________________________________________________________
 
 MAIN_SCREEN PROC
+
     MOV AX, 0600H   ;full screen
     MOV BH, 00111110b     ;black background (0), cyan foreground (C)
     MOV CX, 0000H   ;upper left row:column (0:0)
@@ -424,6 +421,7 @@ BORDERS:
     MOV DL, 30H
     MOV DH, 12H
     CALL SET_CURSOR
+XOR BP,BP
 
 ;display "HIGHSCORE: "
     LEA DX, HIGHSCORE_LABEL
@@ -431,17 +429,15 @@ BORDERS:
 
 
 ;open highscore file
+  LEA DX, PATHFILENAME
   CALL OPEN_FILE
-;read from file, store to RECORD_STR
-;the retrieved string
+  LEA DX, HIGHSCORE_WRT
   CALL READ_FILE
-
-;display highscore
-  LEA DX, RECORD_STR
-  CALL PRINTF
-
-;close filehandle
+   LEA DX, HIGHSCORE_WRT
+    CALL PRINTF
+  CALL STR2HEX
   CALL CLOSE_FILEHANDLE
+
 
 ;set cursor
   MOV DL, 30H
@@ -460,11 +456,6 @@ BORDERS:
 ;print num of lives
   mov  dx, offset SCORESTR
   CALL PRINTF
-
-;for heart character
- ; MOV AH,6
- ; MOV DL, 3     ;3 for heart
- ; INT 21H
 
 MOV DL, 0H
 MOV DH, COL
@@ -661,28 +652,49 @@ GAME_OVER_SCREEN PROC
     CALL SET_CURSOR
 
 ;convert string from file to number
-    MOV SI, OFFSET RECORD_STR     ;pass string to convert 
-    CALL STRTONUM                  ;returns number in bx
+ ;   MOV SI, OFFSET RECORD_STR     ;pass string to convert 
+
+;    CALL STRTONUM                  ;returns number in bx
+
+;    mov dx, offset RECORD_STR
+;    call printf
+;    mov dx, 't'
+;    call printf
+    
+
+;convert score num to printable string
+;    mov  si, offset SCORESTR
+;    mov  ax, bx
+ ;   call number2string    ;RETURNS NUMSTR.
 
 ;compare if score>=highscore
-    CMP SCORE,BX
-    JGE STORE_NEW_HIGHSCORE   ;store new highscore if true
-    JMP PRINT_GAME_OVER
+ ;   CMP SCORE,BX
+ ;   JGE STORE_NEW_HIGHSCORE   ;store new highscore if true
+  ;  JMP PRINT_GAME_OVER
+
+MOV AX, SCORE 
+CALL HEX2DEC
+
+CALL GETSIZE
+MOV AX, HS_NUM
+CMP SCORE,AX
+
+JG STORE_NEW_HIGHSCORE
+JMP PRINT_GAME_OVER
+
 
 ;store by writing to file the new highscore
 STORE_NEW_HIGHSCORE:
-    MOV AL, SCORESTR
-    MOV HIGHSCORE_WRT,AL
-
     CALL CREATE_FILE
     CALL WRITE_TO_FILE
     CALL CLOSE_FILEHANDLE
 
 
 PRINT_GAME_OVER:
-    ;prints game over screen
-      LEA   DX, GAME_OVER
+      LEA DX , GAME_OVER
       CALL PRINTF
+
+
 
 RESTART_OR_NO:
       CALL GET_INPUT
@@ -820,6 +832,111 @@ SET_CURSOR ENDP
 
 ;____________________________________________________________________________________________________________________________________
 
+STR2HEX PROC  
+  PUSH AX
+  PUSH BX
+  PUSH CX
+  PUSH DX
+  PUSH SI
+  
+  XOR SI,SI
+  XOR AX,AX
+  XOR BX,BX
+  MOV TEN,10
+  MOV HS_NUM,0
+  
+  
+  LOOP0:
+  CMP HIGHSCORE_WRT[SI],'$'
+  JE END00
+  
+  MOV CX,TEN
+  MOV AX, HS_NUM
+  MUL CX
+  MOV HS_NUM,AX
+  
+  XOR AX,AX
+  
+  MOV AL,HIGHSCORE_WRT[SI]
+  SUB AL,30H
+  
+  ADD HS_NUM,AX
+
+  INC SI
+  JMP LOOP0
+END00:
+      
+  POP SI
+  POP DX
+  POP CX
+  POP BX
+  POP AX
+  
+  RET
+STR2HEX ENDP
+
+;____________________________________________________________________________________________________________________________________
+
+
+;____________________________________________________________________________________________________________________________________
+
+HEX2DEC PROC  
+  PUSH AX
+  PUSH BX
+  PUSH CX
+  PUSH DX
+  PUSH SI
+  LEA SI,RES
+  MOV CX,0
+    MOV BX,10
+   
+LOOP1: MOV DX,0
+       DIV BX
+       ADD DL,30H
+       PUSH DX
+       INC CX
+       CMP AX,9
+       JG LOOP1
+     
+       ADD AL,30H
+       MOV [SI],AL
+     
+LOOP2: POP AX
+       INC SI
+       MOV [SI],AL
+       LOOP LOOP2
+    
+    INC SI
+    MOV AL,'$'
+    MOV [SI],AL
+    
+    POP SI
+    POP DX
+    POP CX
+    POP BX
+    POP AX
+    RET
+HEX2DEC ENDP
+
+;____________________________________________________________________________________________________________________________________
+
+GETSIZE PROC
+  MOV COUNTER,0
+  XOR SI,SI
+COPY10:
+  CMP RES[SI],'$'
+  JE END10
+  INC COUNTER
+  INC SI
+  JMP COPY10
+END10:
+  MOV MSG[SI],'$'
+  
+RET
+GETSIZE ENDP
+
+;____________________________________________________________________________________________________________________________________
+
 number2string proc 
   CALL DOLLARS
   mov  bx, 10  ;DIGITS ARE EXTRACTED DIVIDING BY 10.
@@ -857,44 +974,6 @@ dollars_loop:
 DOLLARS endp 
 
 ;____________________________________________________________________________________________________________________________________
-
-;string to number
-;si = passed input (offset input)
-;returns output in bx
-
-STRTONUM PROC
-
-;point si to least significant digit
-  INC  SI 
-  MOV CL, [SI]                       
-  MOV CH, 0
-  ADD SI, CX 
-
-  MOV BX, 0
-  MOV BP, 1 
-
-BY_DIGIT:        
-;converting character                   
-  MOV AL, [SI]          ;current character
-  SUB AL, 48            ;convert to digit
-  MOV AH, 0             ;clear AH
-  MUL BP                ;multiply al and bp
-  ADD BX, AX            ;add result to bx
-
-;increase bp by multiple of 10
-  MOV AX, BP
-  MOV BP, 10
-  MUL BP             ;multiply bp by 10
-  MOV BP, AX 
-
-  DEC SI
-  LOOP BY_DIGIT
-
-  RET
-STRTONUM ENDP   
-
-;____________________________________________________________________________________________________________________________________
-
 
 
 END MAIN
