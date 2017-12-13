@@ -4,6 +4,7 @@ TITLE LAB6 (SIMPLIFIED .EXE )
 
 .DATA
 
+;title screen---------------------------------------------------------------------------------------------
 
 GAME_START DB 0ah,0dh
 
@@ -27,7 +28,10 @@ DB "             .-'|  _.|  |    ||   '-__  |   |  |    ||      |       ",0AH,0D
 DB "             |' | |.    |    ||       | |   |  |    ||      |       ",0AH,0DH
 DB "_____________|__'-'_____'____||_______'-'___'-.'____'`______|___________________",0AH,0DH
 DB "________________________________________________________________________________",0AH,0DH,"$" 
-              
+
+;---------------------------------------------------------------------------------------------------------              
+
+;game screen ---------------------------------------------------------------------------------------------  
 
 MAIN_SCREEN_BORDER DB 0AH,0DH
   DB  "  ",0C9H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BBH,0AH,0DH
@@ -53,13 +57,23 @@ MAIN_SCREEN_BORDER DB 0AH,0DH
   DB  "  ",0BAH,"                                     ", 0BAH,"    ",0C8H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BCH,0AH,0DH
   DB "  ",0C8H,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0CDH,0BCH,0AH,0DH,"$"
 
+;---------------------------------------------------------------------------------------------------------  
 
-
+;---------------------------------------------------------------------------------------------------------  
   
-  PRESS_ENTER DB "PRESS ENTER $"
-  SCORELABEL DB "SCORE: $"
-  LIVESLABEL DB "LIVE(S): $"
-  HIGHSCORE_LABEL DB "HIGHSCORE: $"
+  PRESS_ENTER DB "PRESS ENTER $"    ;'press enter' text in title screen
+  SCORELABEL DB "SCORE: $"          ;'score' label in game screen
+  LIVESLABEL DB "LIVES: $"          ;'lives' label in game screen
+  HIGHSCORE_LABEL DB "HIGHSCORE: $" ;'highscore' label in game screen
+
+  LIVES DW ?    ;num of lives
+  SCORE DW ?    ;score
+  SCORESTR DB "$$$$$"               ;printable score
+  HIGHSCORE_WRT    DB 32 DUP('$')   ;highscore txt to be written in file            
+  HS_NUM DW ?                       ;hex version of highscore
+
+;---------------------------------------------------------------------------------------------------------  
+;game over screen-----------------------------------------------------------------------------------------  
 
 GAME_OVER DB 0ah,0dh
 DB "         ______        ___  __________ ",0AH,0DH
@@ -82,6 +96,8 @@ DB "          ESC KEY TO EXIT                   |\__/|     ",0AH,0DH
 DB "                                          ._|//\\|_,     ",0AH,0DH
 DB "                                          `-((  ))-'     ",0AH,0DH,"$"  
 
+;--------------------------------------------------------------------------------------------------------- 
+;how to play screen---------------------------------------------------------------------------------------
   
   DISP_HTP DB 0ah,0dh
   DB "                       H  O  W     T  O     P   L   A  Y                            ",0AH,0DH,0AH,0DH
@@ -93,55 +109,50 @@ DB "                                          `-((  ))-'     ",0AH,0DH,"$"
   db "                         ARROW DOWN TO MOVE DOWN            ", 0ah,0dh
   DB "                      === PRESS ESC TO CONTINUE ===      ", "$"
 
+;---------------------------------------------------------------------------------------------------------  
 
-
-  NEW_INPUT   DB    ?
-  ROW DB 03H
-  COL DB 01H
-  ROWSTAR DB ?
-  COLSTAR DB 03H
+  NEW_INPUT   DB    ?   ;user input
+  ROW DB 03H            ;row variable
+  COL DB 01H            ;column variable
+         
+  STAR_DEFPOS DB ?      ;star row variable
+  COLSTAR DB 03H        ;star column variable
 
   
-  SHOOTER_DEFPOS DB ?
-  BULLET_DEFPOS DB 04H
-  STAR_DEFPOS DB ?
-  BULLET_ROW DB ?
+  SHOOTER_DEFPOS DB ?   ;shooter row variable
 
-  FLAG DB "F$"
-  FLAGC DB "F$"
-  FLAGB DB "F$"
+  BULLET_DEFPOS DB 04H  ;bullet column variable
+  BULLET_ROW DB ?       ;bullet row variable
+
+  FLAG DB "F$"          ;flag for shoot
+  FLAGC DB "F$"         ;flag for collision
+  FLAGB DB "F$"         ;flag for bullets fired
   
 
+  SHOOTER DB ">$"       ;shooter character
+  STAR DB "*$"          ;star 
+  BULLET DB "-$"        ;bullet
 
-  LIVES DW ?
-  SCORE DW ?
-
-  SCORESTR DB "$$$$$"
-  SHOOTER DB ">$"
-  STAR DB "*$"
-  BULLET DB "-$"
-
+;error handling for files --------------------------------------------------------------------------------------------------  
   ERROR1_STR    DB 'Error in creating file.$'
   ERROR2_STR    DB 'Error writing in file.$'
   ERROR3_STR    DB 'Record not written properly.$'
   ERROR4_STR    DB 'Error in opening file.$'
   ERROR5_STR    DB 'Error reading from file.$'
   ERROR6_STR    DB 'No record read from file.$'
+;---------------------------------------------------------------------------------------------------------  
 
-  PATHFILENAME  DB 'high.txt', 00H
-  FILEHANDLE    DW ?
+  PATHFILENAME  DB 'high.txt', 00H ;file path for highscore storage
+  FILEHANDLE    DW ?               ;filehandle
 
-  HIGHSCORE_WRT    DB 32 DUP('$')
-  RECORD_STR    DB 3 DUP('$')
 
-  HIGHSCORE_NUM DW ? 
-  TEN DW ?
-  HS_NUM DW ?
-  COUNTER DW ?
-  RES  DW 100 DUP ('$')
+  TEN DW ?      ; 10 for conversions
+   
+  COUNTER DW ?  ;string length to be written in file
+  OUT_TXT  DW 100 DUP ('$') ;text to be written in file
   MSG DB 32 DUP('$') 
 
-
+;--------------------------------------------------------------------------------------------------------- 
 ;____________________________________________________________________________________________________________________________________
 
 .CODE
@@ -158,25 +169,10 @@ MAIN PROC FAR
 
   CALL WELCOME_SCREEN   ;set first screen
 
-  
-  MOV DL, 10H             ;set the cursor passing dl and dh
-  MOV DH, 1H
-  CALL SET_CURSOR         ;for title text
-
-
-  LEA   DX, GAME_START  ;display content(title text)
-  CALL PRINTF           ;of first screen 
-
-  MOV DL, 20H           ;set the cursor passing dl and dh
-  MOV DH, 10H
-  CALL SET_CURSOR       ;for press enter text
-
-  LEA DX, PRESS_ENTER
-  CALL PRINTF           ;print press enter text
-
   MOV BP, 3             ;set delay
   MOV SI, 3
   CALL DELAY
+
   CALL GET_INPUT        ;listen to key input
   
   CMP NEW_INPUT,01H     ;if input == esc
@@ -250,7 +246,7 @@ WRITE_TO_FILE PROC
   MOV AH, 40H           ;request write record
   MOV BX, FILEHANDLE    ;file handle
   MOV CX, COUNTER            ;record length
-  LEA DX, RES    ;address of output area
+  LEA DX, OUT_TXT    ;address of output area
   INT 21H
   JC DISPLAY_ERROR2     ;cf = 1 means error in writing
   CMP AX, COUNTER         ;after writing, set AX to size of chars nga na write
@@ -301,6 +297,21 @@ WELCOME_SCREEN PROC NEAR
   MOV DX, 184FH   ;lower right row:column (24:79)
   INT 10H
 
+  MOV DL, 10H             ;set the cursor passing dl and dh
+  MOV DH, 1H
+  CALL SET_CURSOR         ;for title text
+
+
+  LEA   DX, GAME_START  ;display content(title text)
+  CALL PRINTF           ;of first screen 
+
+  MOV DL, 20H           ;set the cursor passing dl and dh
+  MOV DH, 10H
+  CALL SET_CURSOR       ;for press enter text
+
+  LEA DX, PRESS_ENTER
+  CALL PRINTF           ;print press enter text
+
   RET
 WELCOME_SCREEN ENDP
 
@@ -321,7 +332,7 @@ DELAY ENDP
 HTP_SCREEN PROC NEAR
 ;set screen colors
   MOV AX, 0600H   ;full screen
-  MOV BH, 20H     ;black background (0), cyan foreground (B)
+  MOV BH, 20H     ;green background (2), black foreground (0)
   MOV CX, 0000H   ;upper left row:column (0:0)
   MOV DX, 184FH   ;lower right row:column (24:79)
   INT 10H
@@ -356,7 +367,7 @@ INITIALIZE PROC
     MOV STAR_DEFPOS, al
     MOV COLSTAR, 03H
     MOV FLAGB, 'F'
-    MOV LIVES, 3
+    MOV LIVES, 5
     MOV SCORE, 0
     MOV BP, 3
     MOV SI, 3
@@ -467,6 +478,9 @@ MAIN_SCREEN ENDP
 ;____________________________________________________________________________________________________________________________________
 
 RENDER_STAR PROC NEAR
+
+
+
 ;SET CURSOR FOR STAR
     MOV DL, STAR_DEFPOS
     MOV DH, COLSTAR
@@ -480,6 +494,7 @@ RENDER_STAR ENDP
 ;____________________________________________________________________________________________________________________________________
 
 RENDER_SHOOTER PROC NEAR
+
 
 ;SET CURSOR FOR SHOOTER?
 
@@ -497,9 +512,7 @@ RENDER_SHOOTER ENDP
 
 RENDER_BULLET PROC NEAR
 
-  MOV BP, 3
-  MOV SI, 3
-  CALL DELAY
+
 
 ;SET CURSOR FOR BULLET
   MOV DL, BULLET_DEFPOS
@@ -514,14 +527,20 @@ RENDER_BULLET ENDP
 ;____________________________________________________________________________________________________________________________________
 
 GAME_LOOP PROC NEAR
+
+;delay printing of main screen
+  MOV BP, 1
+  MOV SI, 2
+  CALL DELAY
  
- ;display main game screen
+;display main game screen
   CALL MAIN_SCREEN
-;render star
-  CALL RENDER_STAR
+
 ;render shooter
   CALL RENDER_SHOOTER
 
+;render star
+  CALL RENDER_STAR
 
   MOV AL, 'F'
   CMP FLAGB, al   ;checks if bullet is fired
@@ -543,7 +562,7 @@ COLLISION_:
 ;if no collision and star is already gone
 ;subtract one life
 NO_COLLISION:
-  CMP COLSTAR,20
+  CMP COLSTAR,22
   JE DEC_LIFE
   JMP NEXT
 
@@ -565,8 +584,8 @@ ESCAPE:
 
 NEXT:
   INC BULLET_DEFPOS   ; move bullet to the right 
-  MOV BP, 5
-  MOV SI, 5
+  MOV BP, 3
+  MOV SI, 3
   CALL DELAY
   CALL MOV_STARS      ;mov stars down and/or reset
   CALL GET_INPUT      ;check input
@@ -641,7 +660,7 @@ CHECK_INPUT ENDP
 
 GAME_OVER_SCREEN PROC
     MOV AX, 0600H   ;full screen
-    MOV BH, 01001010b     ;black background (0), cyan foreground (C)
+    MOV BH, 01001010b     ;red background (0), yellow foreground (C)
     MOV CX, 0000H   ;upper left row:column (0:0)
     MOV DX, 184FH   ;lower right row:column (24:79)
     INT 10H
@@ -651,35 +670,17 @@ GAME_OVER_SCREEN PROC
     MOV DH, COL
     CALL SET_CURSOR
 
-;convert string from file to number
- ;   MOV SI, OFFSET RECORD_STR     ;pass string to convert 
-
-;    CALL STRTONUM                  ;returns number in bx
-
-;    mov dx, offset RECORD_STR
-;    call printf
-;    mov dx, 't'
-;    call printf
-    
-
-;convert score num to printable string
-;    mov  si, offset SCORESTR
-;    mov  ax, bx
- ;   call number2string    ;RETURNS NUMSTR.
-
-;compare if score>=highscore
- ;   CMP SCORE,BX
- ;   JGE STORE_NEW_HIGHSCORE   ;store new highscore if true
-  ;  JMP PRINT_GAME_OVER
 
 MOV AX, SCORE 
-CALL HEX2DEC
+CALL HEX2DEC    ;highscore converted to printable
 
-CALL GETSIZE
+CALL GETSIZE    ;highscore converted to hex for comparison
 MOV AX, HS_NUM
-CMP SCORE,AX
+CMP SCORE,ax    ;if greater ang current score sa highscore
+JG STORE_NEW_HIGHSCORE  ;store new highscore
 
-JG STORE_NEW_HIGHSCORE
+
+
 JMP PRINT_GAME_OVER
 
 
@@ -694,8 +695,7 @@ PRINT_GAME_OVER:
       LEA DX , GAME_OVER
       CALL PRINTF
 
-
-
+;play again or no 
 RESTART_OR_NO:
       CALL GET_INPUT
       JZ RESTART_OR_NO
@@ -704,8 +704,10 @@ RESTART_OR_NO:
       CMP NEW_INPUT, 01H
       JE END_GAME
       JMP RESTART_OR_NO
+
 START_NEW_GAME:
       CALL INITIALIZE
+
 END_GAME:
       MOV AH, 4CH
       INT 21H
@@ -886,9 +888,9 @@ HEX2DEC PROC
   PUSH CX
   PUSH DX
   PUSH SI
-  LEA SI,RES
+  LEA SI,OUT_TXT
   MOV CX,0
-    MOV BX,10
+  MOV BX,10
    
 LOOP1: MOV DX,0
        DIV BX
@@ -924,7 +926,7 @@ GETSIZE PROC
   MOV COUNTER,0
   XOR SI,SI
 COPY10:
-  CMP RES[SI],'$'
+  CMP OUT_TXT[SI],'$'
   JE END10
   INC COUNTER
   INC SI
